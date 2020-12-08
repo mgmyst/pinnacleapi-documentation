@@ -47,7 +47,7 @@ POSTリクエストの場合は必ずボディコンテンツとしてJSONを持
 
 #### HTTP圧縮
 
-Pinnacle APIはHTTP圧縮をサポートしています。優れた場フォーマンスを得るためにも、原則としてHTTP圧縮を用いることを強く推奨します。
+Pinnacle APIはHTTP圧縮をサポートしています。優れたパフォーマンスを得るためにも、原則としてHTTP圧縮を用いることを強く推奨します。
 HTTPヘッダに `User-Agent` を設定することを忘れないようにしてください。
 
 #### 日時フォーマット
@@ -96,13 +96,13 @@ _※未翻訳 現在はリンク切れ_
 [pinnacle status page](https://status.pinnacle.com/)をサブスクライブすることでAPIステータスの通知を受け取ることができます。
 noreply@mg.pinnacle.com から通知が届きますので、迷惑メールボックスを確認してください。
 
-APIのコンテンツ配信事業者としてCloudflareを利用していますので、その状況はこちら(https://www.cloudflarestatus.com/)で確認できます。
+APIのコンテンツ配信事業者としてCloudflareを利用していますので、その状況は[こちら](https://www.cloudflarestatus.com/)で確認できます。
 
 # 参考
 
 #### R
 
-CRANにある[pinnacle.API](https://cran.r-project.org/web/packages/pinnacle.API/index.html)パッケージを利用してください。(install.packages(“pinnacle.API”))
+CRANにある[pinnacle.API](https://cran.r-project.org/web/packages/pinnacle.API/index.html)パッケージを利用してください(install.packages(“pinnacle.API”))。
 ソースコードは[こちら](https://github.com/marcoblume/pinnacle.API)を参照してください。
 
 # 免責事項
