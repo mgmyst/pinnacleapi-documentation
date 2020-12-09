@@ -1,38 +1,39 @@
 <img _ngcontent-c2="" src="https://avatars2.githubusercontent.com/u/31601407?s=70&amp;u=f3c6e1cfc8a26665e4a4df6d8da4a7ee527aeceb&amp;v=4" style="background-color: transparent;"> 
 
-# はじめかた
+# Getting Started
 
-##### ステップ 1 - サインアップ
+##### Step 1 - Sign Up
 
-はじめるにあたり、まずはアカウントを作成する必要があります。
-またPinnacle APIを利用するためには、そのアカウントに入金がされていなくてはならないことを忘れないでください。
+To get started, you would need to create an account.
 
-##### ステップ 2 - 提供されているスポーツやリーグの一覧を取得する
+Please note that in order to access Pinnacle API, the account must be funded.
 
-次に、Get Sports(_注:Pinnacle APIで提供されているAPIのひとつ。以下、API登場時は単に『注:API』とする_)を利用してスポーツのリストを取得しましょう。
-もし特定のリーグに興味があるならば、Get Leagues(_注:API_)を利用することによって、すべてのスポーツリーグを取得することができます。
 
-##### ステップ3 - ベットする
+##### Step 2 - Get a List of Offered Sports and Leagues
 
-ベットの方法については、後述するストレートベットとパーレイベットのセクションを参照してください。
+You would need to get the list of sports from Get Sports operation. If you are interested in particular leagues, you can get all sport leagues by calling Get Leagues operation.
 
-##### ステップ 4 - ベットの状態を確認する
+##### Step 3 - Place Bet 
 
-現在のベットの状態を確認するには、Get Bets(_注:API_)を利用します。
-複数の利用方法がありますが、betIdを使用することを推奨します。
+To place a bet, please check the sections How to place a straight bet and How to place a parlay bet
 
-### ストレートベットの仕方 
+##### Step 4 - Get Bets
 
-##### ステップ 1 - Get Fixtures(_注:API_)を利用する
+To check the status of the placed bet, you need to call Get Bets operation. The recommended way is to use betId.
 
-これは現在提供されているイベントのリストを返します。更新情報を取得するには、deltaリクエスト(sinceパラメータ付き)を使用します。
 
-##### ステップ2 - Get Odds(_注:API_)を利用する
 
-これは現在提供されているオッズのリストを返します。更新情報を取得するには、deltaリクエスト(sinceパラメータ付き)を使用します。
+### How to Place a Straight Bet 
 
---
-_※以下、翻訳作業中_
+#####  Step 1 - Call Get Fixtures operation 
+
+This will return the list of events that are currently offered. To get updates, use delta requests (with since parameter)
+
+
+#####  Step 2 - Call Get Odds operation 
+
+This will return the list of odds that are currently offered. To get updates, use delta requests (with since parameter)
+
 
 ##### Step 3 - Get Line (optional)
 
