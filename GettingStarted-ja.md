@@ -31,22 +31,15 @@
 
 これは現在提供されているオッズのリストを返します。更新情報を取得するには、deltaリクエスト(sinceパラメータ付き)を使用します。
 
---
-_※以下、翻訳作業中_
+##### ステップ3 - Get Line(_注:API_)(optional)を利用する
 
-##### Step 3 - Get Line (optional)
+正確なリミットが必要な場合や、特定のラインに興味がある場合は、Get Lineを利用してください。Get Odds応答のリミットは一般的なリミットであることに注意してください。
 
-Call Get Line operation if you need exact limits or if you are interested in a specific line. Please note that the limits in the Get Odds response are general limits.
+##### ステップ 5 - ベットする
 
+ベットするには、Place Bet(_注:API_)を利用する必要があります。
 
-##### Step 4 - Place Bet
-
-To place a bet, you need to call Place Bet operation.
-
-
-
-Table shows how to do mapping of Get Odds operation response to Place Bet and Get Line request.
-
+次の表はPlace BetとGet Lineリクエストに対するGet Odds操作のレスポンスをマッピングする方法を示しています。
 
 <table width="100%">
 <tbody>
@@ -90,65 +83,69 @@ Table shows how to do mapping of Get Odds operation response to Place Bet and Ge
 </tbody>
 </table>
 
-**IMPORTANT**: 
-Maker sure you use both the `lineId` and `altLineId` from the Get Line or Get Odds response when placing a bet.
-If you the price was for alternate line and you omit to set the `altLineId` parameter in the place bet request, the bet will be placed on the main line.
+**重要**:
+ベットする際には、Get LineまたはGet Oddsレスポンスの `lineId` と `altLineId` の両方を使用してください。
+価格が代替ラインの価格であったときに `altLineId` パラメータを省略していたならば、ベットはメインラインに置かれることになります。
 
+### パーレーベットの仕方 
 
-### How to Place a Parlay Bet 
+##### ステップ 1 - Get Fixtures(_注:API_)を利用する
 
-##### Step 1 – Call Get Fixtures operation
+これは現在提供されているイベントのリストを返します。更新情報を取得するには、deltaリクエストを使用します(sinceパラメータを使用)。
 
-This will return the list of events that are currently offered. To get updates use delta requests (with since parameter)
+##### ステップ 2 – Get Odds(_注:API_)を利用する
 
-##### Step 2 – Call Get Odds operation
+これは現在提供されているオッズのリストを返します。更新情報を取得するには、deltaリクエストを使用します(sinceパラメータを使用)。
 
-This will return the list of odds that are currently offered. To get updates use delta requests (with since parameter)
+##### ステップ 3 – Get Parlay Lines(_注:API_)を利用する
 
-#####  Step 3 – Call Get Parlay Lines operation
+ベットしたいイベントとベットタイプごとに、Get Parlay Lines用のLegオブジェクトを構築し、以下のようにしてリクエストを送信します。
 
-For each event and bet type you want to bet on, construct a Leg object for Get Parlay Lines call and submit your request using: 
-    POST /line/parlay
+```
+POST /line/parlay
 -> If response contains Invalid Legs – remove them and resubmit the request
 -> If response has status = ‘VALID’ – place parlay bet request can be created
-
-##### Step 4 – Call Place Parlay Bet
-
-Construct a list of legs using lineId values from Get Parlay Lines response and specify roundRobbinOptions out of those retuned in Get Parlay Lines response.
+```
 
 
-### How to Place a Teaser Bet
+##### ステップ 4 – Place Parlay Bet(_注:API_)を利用する
 
-##### Step 1 – Call Get Teaser Groups operation
+Get Parlay LinesレスポンスからlineId値を使用してLegsリストを構築し、Get Parlay Linesレスポンスで返されたもののうちroundRobbinOptionsを指定します。
 
-This will return the list of teasers by group containing all the details for each teaser. For example; the minimum/maximum number of legs, payout combinations for the chosen teaser and leagues for each teaser.
+### ティーザーベットの仕方
 
-##### Step 2 – Call Get Teaser Odds operation
+##### ステップ 1 – Get Teaser Groups(_注:API_)を利用する
 
-This will return the list of adjusted points that are currently offered for the given teaser.
+これは各ティーザーの詳細を含むグループ別のティーザーのリストを返します。例えば、最小/最大のLegs数、選択したティーザーのペイアウトの組み合わせ、各ティーザーのリーグなどです。
+
+##### ステップ 2 – Get Teaser Odds(_注:API_)を利用する
+
+これは与えられたティーザーに現在提供されている調整済みポイントのリストを返します。
  
-##### Step 3 – Optionally, call Get Teaser Lines operation
+##### ステップ 3 – オプション : Get Teaser Lines(_注:API_)を利用する
 
-Prior to submitting a teaser bet you can call this endpoint to validate your proposed bet, calculate the effective minimum/maximum win/risk bet limits, as well as get the price you will receive for the bet without actually placing a bet.
+ティザーベットを行う前に、このエンドポイントを呼び出して提案されたベットの有効性を確認し、有効な最小/最大勝率/リスクのベットリミットを（実際にベットすることなく）計算することができます。
 
-##### Step 4 – Call Place Teaser Bet operation
+##### ステップ 4 – Place Teaser Bet(_注:API_)を利用する
 
-Using the information obtained from the previous steps, build and place your bet.
+以上のステップで得た情報を用いて、Place Teaser Betを利用し実際にベットを行っていきます。
 
-### How to Place a Special Bet
+### スペシャルベットの仕方
 
-##### Step 1 – Call Get Special Fixtures operation
+##### ステップ 1 – Get Special Fixtures(_注:API_)を利用する
 
 This will return the list of specials that are currently offered. To get updates use delta requests (with since parameter)
 
-##### Step 2 – Call Get Special Odds operation
+これは現在提供されているスペシャルベットのリストを返します。更新情報を取得するには、deltaリクエストを使用します(sinceパラメータを使用)。
 
-This will return the list of special odds that are currently offered. To get updates use delta requests (with since parameter)
+##### ステップ 2 – Get Special Odds(_注:API_)を利用する
+
+これは現在提供されているスペシャルオッズのリストを返します。更新情報を取得するにはdeltaリクエストを使用します(sinceパラメータを使用します)。
  
-##### Step 3 – Optionally; call Get Special Lines operation
+##### ステップ 3 – オプション : Get Special Lines(_注:API_)を利用する
 
-Prior to submitting a special bet, you can call this endpoint to validate your proposed bet, calculate the effective minimum/maximum win/risk bet limits, as well as get the price you will receive for the bet without actually placing a bet.
+スペシャルベットをする前にこのAPIを利用し、提案されたベットの有効性を確認したうえで、有効な最小/最大勝率/リスクのベットリミットを（実際にベットすることなく）計算することができます。
 
-##### Step 4 – Call Place Special Bet operation
+##### ステップ 4 – Place Special Bet(_注:API_)を利用する
 
-Using the information obtained from the previous steps, build and place your bet.
+以上のステップで得た情報を用いて、Place Special Betを利用し実際にベットを行っていきます。
