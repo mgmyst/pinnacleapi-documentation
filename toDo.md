@@ -1,7 +1,13 @@
-- [] APIChangelog.md の翻訳
-- [] FairUsePolicy.md の翻訳
-- [] FAQ.md の翻訳
-- [x] GettingStarted.md の翻訳
-- [] README.mdの翻訳
-    - [] APIリファレンス の翻訳
-    - [] その他 の翻訳
+[] APIChangelog.md の翻訳
+
+[x] FairUsePolicy.md の翻訳
+
+[] FAQ.md の翻訳
+
+[x] GettingStarted.md の翻訳
+
+[] README.mdの翻訳
+
+    [] APIリファレンス の翻訳
+    
+    [] その他 の翻訳
