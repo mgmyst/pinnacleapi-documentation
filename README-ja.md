@@ -1,10 +1,5 @@
 <img _ngcontent-c2="" src="https://avatars2.githubusercontent.com/u/31601407?s=70&amp;u=f3c6e1cfc8a26665e4a4df6d8da4a7ee527aeceb&amp;v=4" style="background-color: transparent;"> 
 
-# はじめに
-
-このドキュメントは [pinnacleapi / pinnacleapi-documentation](https://github.com/pinnacleapi/pinnacleapi-documentation) からフォークされた非公式の邦訳ドキュメントです。
-オリジナルのドキュメントは[こちら](https://github.com/pinnacleapi/pinnacleapi-documentation)を参照してください。
-
 # 概要
 
 Pinnacle APIは、あらゆるベットタイプでスポーツにベットするためのRESTfulサービスです。
