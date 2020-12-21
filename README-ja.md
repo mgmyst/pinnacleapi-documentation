@@ -67,11 +67,9 @@ HTTPヘッダに `User-Agent` を設定することを忘れないようにし�
 
 # APIリファレンス
 
-_※未翻訳 以下はオリジナルへのリンク_
+**[Pinnacle API Open API Specification](https://github.com/pinnacleapi/OpenAPI-Specification)** はGitHubでホストされています。
 
-**[Pinnacle API Open API Specification](https://github.com/pinnacleapi/OpenAPI-Specification)** is hosted on GitHub.
-
-The API reference documentation:
+APIリファレンスドキュメント:
 
 **[Lines API](https://pinnacleapi.github.io/linesapi)**
 
@@ -81,15 +79,13 @@ The API reference documentation:
 
 # その他
 
-_※未翻訳 現在はリンク切れ_
+[Getting Started](GettingStarted-ja.md)
 
-[Getting Started](GettingStarted.md)
+[API Change Log](original/APIChangelog.md) 
 
-[API Change Log](APIChangelog.md) 
+[FAQ](FAQ-ja.md)
 
-[FAQ](FAQ.md)
-
-[Fair Use Policy](FairUsePolicy.md)
+[Fair Use Policy](FairUsePolicy-ja.md)
 
 # APIステータス
 

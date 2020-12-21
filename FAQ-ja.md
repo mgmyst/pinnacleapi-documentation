@@ -156,25 +156,23 @@ propsやfuturesマーケットはスペシャルオファーとして提供さ�
 
 ```
 
-Please note that for live events, odds change quite frequently as well as the period `status`. 
-Due to these frequent changes, it’s possible that you will be getting status `NOT_EXISTS` in the [Get Line](https://pinnacleapi.github.io/linesapi#operation/Line_Straight_V1_Get) response more often than for the pre-game events.
+ライブイベントの場合は、期間`status`と同様にオッズも頻繁に変化するので注意してください。
+このような頻繁な変更のため、試合前のイベントよりも、[Get Line](https://pinnacleapi.github.io/linesapi#operation/Line_Straight_V1_Get)(_注:API_)のレスポンスに `NOT_EXISTS` というステータスが表示されることが多くなる可能性があります。
 
-A special market is open for betting if:
+スペシャルマーケットは次のようなベッティングの場合に開催されます:
 
-1. Special event `status` is `"O"` or `"I"`. See [Get Special Fixtures](https://pinnacleapi.github.io/linesapi#operation/Fixtures_Special_V1_Get).
-2. Market is priced. See [Get Special Odds](https://pinnacleapi.github.io/linesapi#operation/Odds_Special_V1_Get) .
-3. Special event `cutoff` is in the future. See [Get Special Fixtures](https://pinnacleapi.github.io/linesapi#operation/Fixtures_Special_V1_Get).
+1. スペシャルイベントの `status` が `"O"` または `"I"` である。参考:[Get Special Fixtures](https://pinnacleapi.github.io/linesapi#operation/Fixtures_Special_V1_Get)
+2. マーケットが priced である。参考:[Get Special Odds](https://pinnacleapi.github.io/linesapi#operation/Odds_Special_V1_Get)
+3. スペシャルイベントの `cutoff` が未来の日時である。参考:[Get Special Fixtures](https://pinnacleapi.github.io/linesapi#operation/Fixtures_Special_V1_Get).
  
-### How to place a bet on live events?
+### ライブイベントにベットするには?
 
-Bets placed on events with live delay are treated differently than other bets. They get  `betId`  assigned only once they are `ACCEPTED`.
-
-
-The only way to find out the  `status`  of such a bet is by querying  `/bets?uniqueRequestIds`:
+ライブディレイ（遅延）のあるイベントに置かれたベットは、通常のベットとは異なる扱いを受けます。ベットは `ACCEPTED` されて初めて `betId` が割り当てられます。
+そのようなベットの `status` を調べる唯一の方法は、`/bets?uniqueRequestIds` を問い合わせることです。
 
 `/bets?uniqueRequestIds=86a90ab9-fca1-4703-a11c-ce329a85584e`
 
-As long as the bet is in `PENDING_ACCEPTANCE`, the response would be:
+ベットが `PENDING_ACCEPTANCE` ステータスである限り、レスポンスは次のようなものになります。
 
 ```json
 {
@@ -188,12 +186,9 @@ As long as the bet is in `PENDING_ACCEPTANCE`, the response would be:
 
 ```
 
+備考: `PENDING_ACCEPTANCE` ステータスは追って `NOT_ACCEPTED` か `ACCEPTED` になります
 
-
-NOTE: Status can change from `PENDING_ACCEPTANCE` to `NOT_ACCEPTED` or `ACCEPTED`
-
-
-If the bet was `NOT_ACCEPTED`, the response would be:
+もし `NOT_ACCEPTED` ステータスとなった場合、次のようなレスポンスとなります。
 
 ```json
 
@@ -209,7 +204,7 @@ If the bet was `NOT_ACCEPTED`, the response would be:
 
 ```
 
-If the bet was `ACCEPTED`, the response includes the full bet details:
+`ACCEPTED` ステータスの場合、レスポンスはベッドの詳細を含む次のようなものを返します。
 
 ```json
 
@@ -241,100 +236,100 @@ If the bet was `ACCEPTED`, the response includes the full bet details:
  
 ```
 
-We apply live delay of around 6 seconds, so the first call to  `/bets`  should be 6 seconds after placing a bet. 
+6秒前後のライブディレイを適用していますので、 `/bets` の最初の利用はベッティングから約6秒後となるはずです。
 
-30 minutes after placing a bet, we will stop returning a response for provided uniqueRequestId. This is due to cache cleanup to maintain optimal performance.
+ベットしてから30分後には、提供されたuniqueRequestIdに対するレスポンスを返さなくなります。これは、最適なパフォーマンスを維持するためにキャッシュをクリーンアップするためです。
 
-Please also note that the `RUNNING` bet list does not return any live delay bets that are `PENDING_ACCEPTANCE` or `NOT_ACCEPTED`.
+また、 `RUNNING` ベットリストは、 `PENDING_ACCEPTANCE` や `NOT_ACCEPTED` のライブディレイベットを返しませんのでご注意ください。
 
+### アフィリエイトでAPIにアクセスするにはどうすればいいですか?
 
+アフィリエイトとしてAPIにアクセスするためには、過去3ヶ月間の新規ファンディングサインアップを5件紹介する必要があります。過去3ヶ月間の5件の新規ファンディングサインアップを紹介できなかった場合、APIへのアクセスが取り消される場合があります
 
+### オッズはどれくらいの頻度でリフレッシュできますか?
 
-### How do I get access to the API as an affiliate?
+フェアユースポリシーをご確認ください。
 
-In order to access the API as an affiliate, you are required to send 5 new funded signups from the previous 3 months. If you are unable to refer 5 new funded signups from the previous 3-month period, access to the API may be rescinded.
+### www.pinnacle.com へのリンクが正しくトラッキングされていることを確認するにはどうすればいいですか?
 
-### How often can I refresh your odds?
+www.pinnacle.com へのリンクには、必ずトラッキングリンクを付けてください。
+あなたのトラッキングリンクは、http://affiliates.pinnacle.com にアクセスしたあなたのアフィリエイトアカウントから利用可能です。 
 
-Please check our fair use policy
+正しいトラッキングリンクは、次のような形式になります:   http://affiliates.pinnacle.com/processing/clickthrgh.asp?btag=a_numbersb_numbers
 
-### How do I make sure my links to www.pinnacle.com are tracking correctly?
+### レスポンスをキャッシュしていますか? またそれはどの程度の期間ですか?
 
-Please ensure that any links back to  www.pinnacle.com  are tagged with your tracking link. 
-Your tracking links are available from your affiliate account accessed at  http://affiliates.pinnacle.com
+`Get Odds` と `Get Fixtures` のスナップショットは60秒間キャッシュされます。  
+`Get Odds` と `Get Fixtures` のデルタコールはキャッシュされません。
 
-A correct tracking link will have the format:   http://affiliates.pinnacle.com/processing/clickthrgh.asp?btag=a_numbersb_numbers
+### www.pinnacle.com の関連オッズページに直接リンクすることはできますか?
 
-### Do you cache responses? For how long?
+可能です。ただし customerservice@pinnacle.com までご連絡ください。
 
-`Get Odds`  and  `Get Fixtures`  snapshot calls are cached for 60 seconds.  
-`Get Odds`  and  `Get Fixtures`  delta calls are not cached.
+### データがあるスポーツやリーグだけを取得するにはどうすればいいですか?
 
-### Can I link directly to the relevant odds pages on www.pinnacle.com (deep linking)?
+`Get Sports` 及び `Get Leagues` APIは `hasOfferings` プロパティを持っており、これを有効にすることで利用可能なベットを持つスポーツやリーグのみを取得できます。
 
-Yes. To link directly to our odds pages, please contact customerservice@pinnacle.com
+### USD以外の通貨での最大ベット額はどのように計算されていますか?
 
-### How can I return only those sports and leagues which have data?
+我々はoanda.comを利用し、24時間ごとに為替レートを更新しています。
+米ドル以外の通貨については、通貨換算の結果、指定された小数点以下の最大の整数に四捨五入されます（_訳注:小数点切捨_）のでご注意ください。
+例えば、最大ベット額が£345.23の場合は、£345に切り捨てられます。
 
-`Get Sports`  and  `Get Leagues`  operations have the  `hasOfferings`  property that indicates availability of the markets.
+### APIではどのタイムゾーンを使用していますか?
 
-### How do you calculate maximum bet amounts for currencies other than USD?
+全てにおいてグリニッジ標準時（GMT）です。
 
-We follow oanda.com, and update our exchange rates every 24 hours. Please note that for non-USD currencies, we round them to the largest integer less-than or equal-to the specified decimal number resulting from currency conversion. For example, a maximum bet amount of £345.23 would be rounded down to £345.
+### イベントが削除されたか決済されたかを知るにはどうすればいいですか?
 
-### What time zone is used for the API?
+イベントの期間が確定したのか、イベントが削除されたのかを調べるには、`Get Settled Fixtures`(_注:API_) を利用してください。
 
-All times are GMT.
+### オッズの変化を取得するには?
 
-### How can I know if an event is deleted or settled?
+1) スナップショット: /odds を呼び出します (since パラメータなし) - これはキャッシュされたオッズのスナップショットを返します
+2) デルタ: /odds を呼び出します (スナップショットのレスポンスから `since` パラメータを指定) - スナップショット以降のすべての変更を取得します
 
-Please use  `Get Settled Fixtures`  to find out if the event's period was settled or if the event was deleted.
+デルタレスポンスは現在提供されているすべてのマーケットの変更後のピリオドのみを持ちます。
+例えば、イベントに対してピリオド0とピリオド1のオッズを提供していて、ピリオド1のマーケットのひとつに変更があった場合、デルタコールでは変更されたマーケットだけでなく、現在提供しているすべてのマーケットでピリオド1のみが提供され、ピリオド0はデルタレスポンスには含まれません。
 
+例:
 
-### How to get odds changes?
-
-1) Call the snapshot /odds (without the since parameter) - this would return cached odds snapshot
-2) Call the delta /odds (with the `since` parameter,  from the snapshot response) - to get all the changes since the snapshot.
-
-Delta response has only changed periods, with all the markets that are currently offered. For example, if we offer period 0 and period 1 odds on an event and there was a change in one of the markets in period 1, the delta call will have only period 1 with all the markets that we currently offer, not just the changed markets, and the period 0 will not be in the delta response.
-
-Example:
-
-1) Snapshot call returns period `number`=1 and period `number`=0 , and both of them have `moneyline` and `spreads` odds.
-2) Subsequent, Delta call returns just period 1 with the `moneyline` and `totals`
+1) スナップショットコールはピリオド `number`=1 とピリオド `number`=0 を返し、どちらも `moneyline` と `spreads` のオッズを持つ
+2) その後、デルタコールは `moneyline` と `totals` でピリオド1だけを返します。
     
- => This means that the period `number`=0 did not have any changes, and on the period `number`=1 , the `spreads` is not offered anymore while the `totals` are offered now and the `moneyline` may have new prices
+ => これは、`number`=0 の期間には何も変更がなかったことを意味し、`number`=1 の期間には `スプレッド` が提供されなくなり、`合計` が提供されるようになり、`moneyline` が新しい価格を持つようになったことを意味します。
  
- ### What TLS (Transport Layer Security) versions are supported?
+### TLS (Transport Layer Security) のどのバージョンがサポートされていますか?
  
- To be compliant with the security requirements API supports only TLS 1.2 (preferably ) and TLS 1.1.
+セキュリティ要件に準拠するために、APIはTLS 1.2（できれば）とTLS 1.1のみをサポートしています。
  
+### なぜEsportsでアクセスが拒否されてしまうのですか？
  
- ### Why am I getting denied access on Esports?
- Access to Esports is blocked and requires special authorization. To get the access please contact b2b@pinnacle.com and explain your business case. 
+Esportsへのアクセスはブロックされており、特別な許可が必要です。アクセスを得るためには、b2b@pinnacle.com に連絡してください。 
  
- ### Why am I getting `NOT_EXISTS` when calling `/line` operation?
+### なぜ `/line` の操作を呼び出すと `NOT_EXISTS` が表示されるのですか?
  
- These are possible reasons:
+次の理由が考えられます:
 
-1) Not sending correct  `periodNumber`, `eventid` , `leagueid` or `sportId`
+1) 送信している値が誤っている  `periodNumber`, `eventid` , `leagueid` , `sportId` など
 
-It is not a rare situation that the actual match is offered with more than one event.
-Different periods of the same actual match can be offered with the different events - period 0 can be  offered in `eventid` X and period 1 can be offered on `eventid` Y. It may also happen that for the same  `periodNumber` we offer `MONEYLINE` on `eventid`  X but `TOTAL` on `eventid`  Y.
+実際の試合は複数のイベントで提供されることも珍しくありません。
+また、同じ `periodNumber` であっても、`eventid` X では `MONEYLINE` を提供し、`eventid` Y では `TOTAL` を提供することもあります。
 
+2) `cutoff` に過去の日付を指定している
 
-2) Period `cutoff` date time is in the past.
+3) その時点でセレクションに価格がついていない
 
-3) Selection has no prices at the moment.
+4) 正しくない値の送信 `handicap`, `team` , `side` など
 
-4) Not sending correct `handicap`, `team` or `side`
+5) ピリオドの`status`が「2」または「offline」
 
-5) Period `status`=2 , offline
+### 削除されたイベントを検出するには？
 
-### How to detect deleted events?
-Sometimes an event can be deleted from the system, in such a case, since `/fixtures` would not return deleted events,  the event will be returned in `/fixtures/settled` with the period `number`=0 and `status`=5 
+システムからイベントが削除されることもあります。
+そのような場合、`/fixtures`では削除されたイベントは返されないので、`/fixtures/settled`で `number`=0, `status`=5 のピリオドでイベントを探してください。。 
  
- ```json
+```json
   {
                     "id": 933912855,
                     "periods": [
@@ -349,40 +344,37 @@ Sometimes an event can be deleted from the system, in such a case, since `/fixtu
                     ]
                 },
  
- ```
-### How to handle unexpected error when placing a bet?
-If you get any unexpected error upon calling a place bet operation,  that does NOT mean that your bet was not placed.
-You must check if the bet was placed by calling the [`bets?uniqueRequestIds={comma separated uniqueRequestIds}`](https://pinnacleapi.github.io/betsapi#operation/Bets_GetBetsByTypeV3).
-If you have a retry logic, make sure you reuse the same uniqueRequestId in the place bet request. 
-For more details on how uniqueRequestId works, please check [Deduplication](https://github.com/pinnacleapi/pinnacleapi-documentation#deduplication).
+```
 
-### How to handle RESUBMIT_REQUEST error when placing a bet?
-This error can occur when trading logic is updating internal parameters. It's not an error on your side , neither is it an API error. Please continue to resubmit your wager until you receive a different response.
+### ベッティング時の予期せぬエラーに対応するには?
 
+ベッティング操作時の予期せぬエラーの発生は、必ずしもベッティングの失敗を意味しません。
+[`bets?uniqueRequestIds={comma separated uniqueRequestIds}`](https://pinnacleapi.github.io/betsapi#operation/Bets_GetBetsByTypeV3)のようにして必ずベッティング状況を確認してください。
+リトライするようなロジックを組み込むならば、同じユニークリクエストIDを使うようにしてください。 
+ユニークリクエストIDの動作の詳細については[こちら](https://github.com/pinnacleapi/pinnacleapi-documentation#deduplication)を確認してください。
 
+### ベッティングの際にRESUBMIT_REQUESTエラーが発生した場合の対処法は？
 
+このエラーは、取引ロジックが内部パラメータを更新しているときに発生する可能性があります。これはあなたの側のエラーではありませんし、APIエラーでもありません。別のレスポンスを受信するまで、賭け金を再送信し続けてください。
 
-###  How to calculate max risk from the max volume limits in `/odds`?
+###  `/odds`の最大ボリュームリミットから最大リスクを計算するには？
 
-`/odds` operation returns max volume limits.
+`/odds` は最大ボリュームリミットを返します。
+最大ボリュームから最大リスクを計算するには、10進オッズ形式の価格については、次の式を使用することができます。
 
-To calculate the max risk from the max volume , for a price in decimal odds format, you can use this formula:
-
-If  price  > 2  then:  
+もし  price  > 2  ならば:  
 ```
 maxRisk = maxVolume  
 ```
-, otherwise when price  < 2: 
+, または price  < 2 ならば: 
 ```
  maxRisk = maxVolume/(price - 1)
-
 ```
 
+##### 例:
 
+`/odds`が次のようなmoneylineを返してきた場合、
 
-##### Example:
-
-When `/odds` return this moneyline offering
 ```json 
 {
                             "lineId": 242220498,
@@ -397,7 +389,7 @@ When `/odds` return this moneyline offering
                         }
 
 ```
-Max volume is 250.
-Home team max risk is 305. 
-Away team max risk is 250.
 
+最大ボリュームは250。
+ホームチームの最大リスクは305。
+アウェイチームの最大リスクは250。
